@@ -12,13 +12,8 @@ pub fn init<S: Storage, A: Api, Q: Querier>(
     env: Env,
     msg: InitMsg,
 ) -> StdResult<InitResponse> {
-    let now = match SystemTime::now().duration_since(UNIX_EPOCH) {
-        Ok(t) => t.as_secs(),
-        Err(_) => return Err(StdError::generic_err("time"))
-    };
-
     let state = State {
-        last_called: now,
+        last_called: 0,
         owner: deps.api.canonical_address(&env.message.sender)?,
     };
 
