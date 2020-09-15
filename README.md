@@ -1,12 +1,17 @@
-# An Example of Non-deterministic Contract (using rand)
+# An Example of Non-deterministic Contract (using time)
 
 ## Summary
+Non-deterministic contracts are expected not to be able to stored in chain.
+However, contracts using `rand::Rng.gen()` can be stored in the chain.
 
 In the `master` branch, both init and execute are non-deterministic.
 In the `deterministic-init` branch, only execute is non-deterministic.
+
 Conclusion of comparing these, it issues a `out of gas` error when non-deterministic part (`SystemTime::now()`) is executed.
 
-## Compile and Execute
+Why `out of gas` is issued is referred by https://github.com/CosmWasm/cosmwasm/issues/501 and https://github.com/CosmWasm/cosmwasm/issues/375 .
+
+## Compile
 This section is summary of https://docs.cosmwasm.com/getting-started/compile-contract.html .
 For set up the environment, see https://docs.cosmwasm.com/getting-started/installation.html and https://docs.cosmwasm.com/getting-started/setting-env.html .
 
@@ -21,6 +26,8 @@ docker run --rm -v "$(pwd)":/code \
 
 Then, `contract.wasm` is the output.
 
-To know how to install and execute the wasm, see https://docs.cosmwasm.com/getting-started/interact-with-contract.html .
-It is a very kind documentation.
-(However there is a bug. see also https://github.com/CosmWasm/docs2/issues/26 )
+
+## Execute
+I installed and executed the contract in the local chain following https://docs.cosmwasm.com/getting-started/interact-with-contract.html .
+Notice there is a bug. see also https://github.com/CosmWasm/docs2/issues/26
+.
